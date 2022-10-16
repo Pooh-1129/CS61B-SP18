@@ -86,11 +86,11 @@ public class IntList {
             return B;
         }
         IntList p = A;
-        while(p.rest!=null){
+        while(p.rest != null){
             p = p.rest;
         }
         p.rest = B;
-        return p;
+        return A;
     }
 
     /**
@@ -103,10 +103,10 @@ public class IntList {
             return B;
         }
         else if(A.rest == null){
-            return new IntList(A.first,B);
+            return new IntList(A.first, B);
         }
         else{
-            return new IntList(A.first,dcatenate(A.rest, B));
+            return new IntList(A.first, dcatenate(A.rest, B));
         }   
     }
 
