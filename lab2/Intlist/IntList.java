@@ -102,12 +102,16 @@ public class IntList {
         if(A == null){
             return B;
         }
-        else if(A.rest == null){
-            return new IntList(A.first, B);
+        IntList p = new IntList(A.first, null);
+        IntList t1 = A;
+        IntList t2 = p;
+        while (t1.rest != null) {
+            t1 = t1.rest;
+            t2.rest = new IntList(t1.first, null);
+            t2 = t2.rest;
         }
-        else{
-            return new IntList(A.first, dcatenate(A.rest, B));
-        }   
+        t2.rest = B;
+        return p;
     }
 
 
