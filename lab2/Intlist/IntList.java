@@ -87,9 +87,9 @@ public class IntList {
         }
         IntList p = A;
         while(p.rest!=null){
-            p = p.next;
+            p = p.rest;
         }
-        p.next = B;
+        p.rest = B;
         return p;
     }
 
@@ -106,7 +106,8 @@ public class IntList {
             return new IntList(A.first,B);
         }
         else{
-            return new IntList(A.first,dcatenate(A.rest, B));   
+            return new IntList(A.first,dcatenate(A.rest, B));
+        }   
     }
 
 
