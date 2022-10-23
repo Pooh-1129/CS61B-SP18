@@ -11,8 +11,8 @@ public class LinkedListDeque<T> {
     }
   } 
 
-  public node sentinal;
-  public int size;
+  private node sentinal;
+  private int size;
 
   public LinkedListDeque() {
     sentinal = new node(null, null, null);
@@ -64,6 +64,9 @@ public class LinkedListDeque<T> {
   }
 
   public T removeLast() {
+    if (size == 0) {
+      return null;
+    }
     node to_remove = sentinal.pre;
     T it = to_remove.item;
     to_remove.pre.next = sentinal;
