@@ -7,7 +7,7 @@ public class TestPalindrome {
     static Palindrome palindrome = new Palindrome();
 
     @Test
-    public static void testWordToDeque() {
+    public void testWordToDeque() {
         Deque d = palindrome.wordToDeque("persiflage");
         String actual = "";
         for (int i = 0; i < "persiflage".length(); i++) {
@@ -17,7 +17,7 @@ public class TestPalindrome {
     } 
 
     @Test
-    public static void TestisPalindrome() {
+    public void TestIsPalindrome() {
         assertTrue(palindrome.isPalindrome(""));
         assertTrue(palindrome.isPalindrome("y"));
         assertTrue(palindrome.isPalindrome("aba"));
@@ -27,15 +27,15 @@ public class TestPalindrome {
     }
 
     @Test 
-    public static void TestbyOne() {
+    public void testIsOffByOnePalindrome() {
         CharacterComparator cc = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake", cc));
         assertFalse(palindrome.isPalindrome("tet", cc));
     }
 
-    public static void main(String[] args) {
-        testWordToDeque();
-        TestisPalindrome();
-        TestbyOne();
-    }
+    // public static void main(String[] args) {
+    //     testWordToDeque();
+    //     TestIsPalindrome();
+    //     testIsOffByOnePalindrome();
+    // }
 }
