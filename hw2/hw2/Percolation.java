@@ -45,11 +45,11 @@ public class Percolation {
         continue;
       }
       //last
-      if (nrow == N) {
+      else if (nrow == N) {
         UF.union(xyTO1D(row, col), N * N + 1);
         continue;
       }
-      if (isOpen(nrow, ncol) && !UF.connected(xyTO1D(nrow, ncol), xyTO1D(row, col))) {
+      else if (isOpen(nrow, ncol) && !UFB.connected(xyTO1D(nrow, ncol), xyTO1D(row, col))) {
         UF.union(xyTO1D(nrow, ncol), xyTO1D(row, col));
         UFB.union(xyTO1D(nrow, ncol), xyTO1D(row, col));
       }
