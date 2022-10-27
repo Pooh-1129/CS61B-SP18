@@ -3,7 +3,7 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation { 
-  private boolean grid[][];
+  private boolean[][] grid;
   private int N;
   private WeightedQuickUnionUF UF;
   private WeightedQuickUnionUF UFB;
@@ -42,7 +42,6 @@ public class Percolation {
       if (nrow == -1) {
         UF.union(xyTO1D(row, col), N * N);
         UFB.union(xyTO1D(row, col), N * N);
-
         continue;
       }
       //last

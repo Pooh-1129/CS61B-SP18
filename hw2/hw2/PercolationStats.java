@@ -10,7 +10,7 @@ public class PercolationStats {
     if (N <= 0 || T <= 0) {
       throw new IllegalArgumentException("invalid N or T");
     } 
-    rec = new double[N];
+    rec = new double[T];
     this.T = T;
     for (int i = 0; i < T; i++) {
       Percolation p = pf.make(N);
