@@ -107,7 +107,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public Set<K> keySet() {
         Set<K> s = new HashSet<>();
-        iterateadd(roo,s);
+        iterateadd(root,s);
         return s;    
     }
 
