@@ -1,6 +1,10 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
+import javax.swing.text.AbstractDocument.Content;
+
 /**
  * A Generic heap class. Unlike Java's priority queue, this heap doesn't just
  * store Comparable objects. Instead, it can store any type of object
@@ -28,7 +32,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int leftIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+        return i * 2;
     }
 
     /**
@@ -36,7 +40,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int rightIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+        return i * 2 + 1;
     }
 
     /**
@@ -44,7 +48,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int parentIndex(int i) {
         /* TODO: Your code here! */
-        return 0;
+        if (i == 1) {
+            throw new IllegalArgumentException();
+        }
+        return i / 2;
     }
 
     /**
@@ -106,8 +113,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-
-        /** TODO: Your code here. */
+        if (index == 1) {
+            return;
+        }
+        if (min(index, parentIndex(index)) == index) {
+            swap(index, parentIndex(index));
+            swim(parentIndex(index));
+        }
         return;
     }
 
@@ -117,8 +129,15 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-
-        /** TODO: Your code here. */
+        //判断边界！
+        if (!inBounds(index)) {
+            return;
+        }
+        int toSwap = min(leftIndex(index), rightIndex(index));
+        if (min(toSwap, index) == toSwap) {
+            swap(index, toSwap);
+            sink(toSwap);
+        }
         return;
     }
 
@@ -132,8 +151,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (size + 1 == contents.length) {
             resize(contents.length * 2);
         }
-
-        /* TODO: Your code here! */
+        contents[size + 1] = new Node(item, priority);
+        size++;
+        swim(size);
     }
 
     /**
@@ -142,8 +162,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        /* TODO: Your code here! */
-        return null;
+        if (size == 0) {
+            throw new NoSuchElementException();
+        }
+        return contents[1].item();
     }
 
     /**
@@ -157,8 +179,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        /* TODO: Your code here! */
-        return null;
+        T ret = contents[1].item();
+        swap(size, 1);
+        size -= 1;
+        sink(1);
+        contents[size + 1] = null;
+        return ret;
     }
 
     /**
@@ -181,6 +207,18 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public void changePriority(T item, double priority) {
         /* TODO: Your code here! */
+        int i;
+        for (i = 1; i <= size; i++) {
+            if (getNode(i).myItem.equals(item)) {
+                break;
+            }
+        }
+        if (!inBounds(i)) {
+            throw new IllegalArgumentException();
+        }
+        contents[i].myPriority = priority;
+        swim(i);
+        sink(i);
         return;
     }
 
@@ -414,4 +452,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
     }
 
+    public static void main(String[] args) {
+        jh61b.junit.textui.runClasses(ArrayHeap.class);
+    }
 }

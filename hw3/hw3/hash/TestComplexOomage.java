@@ -50,7 +50,7 @@ public class TestComplexOomage {
     public void testWithDeadlyParams() {
         //溢出问题
         List<Oomage> deadlyList = new ArrayList<>();
-        int deadlyListSize=10000;
+        int deadlyListSize = 10000;
         for (int i = 0; i < deadlyListSize; i++) {
             int N = StdRandom.uniform(1, 10);
             ArrayList<Integer> params = new ArrayList<>(N);
