@@ -113,14 +113,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        if (index == 1) {
-            return;
+        int pIndex = parentIndex(index);
+        while (inBounds(pIndex) && getNode(index).myPriority < getNode(pIndex).myPriority) {
+            swap(index, pIndex);
+            index = pIndex;
+            pIndex = parentIndex(index);
         }
-        if (min(index, parentIndex(index)) == index) {
-            swap(index, parentIndex(index));
-            swim(parentIndex(index));
-        }
-        return;
     }
 
     /**
@@ -130,15 +128,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
         //判断边界！
-        if (!inBounds(index)) {
-            return;
+        int minChildIndex = min(leftIndex(index), rightIndex(index));
+        while (inBounds(minChildIndex) && getNode(index).myPriority > getNode(minChildIndex).myPriority) {
+            swap(index, minChildIndex);
+            index = minChildIndex;
+            minChildIndex = min(leftIndex(index), rightIndex(index));
         }
-        int toSwap = min(leftIndex(index), rightIndex(index));
-        if (min(toSwap, index) == toSwap) {
-            swap(index, toSwap);
-            sink(toSwap);
-        }
-        return;
     }
 
     /**
@@ -207,18 +202,17 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public void changePriority(T item, double priority) {
         /* TODO: Your code here! */
-        int i;
-        for (i = 1; i <= size; i++) {
+        for (int i = 1; i <= size; i++) {
             if (getNode(i).myItem.equals(item)) {
-                break;
+                double former = contents[i].myPriority;
+                contents[i].myPriority = priority;
+                if (former > priority) {
+                    swim(i);
+                } else {
+                    sink(i);
+                }
             }
         }
-        if (!inBounds(i)) {
-            throw new IllegalArgumentException();
-        }
-        contents[i].myPriority = priority;
-        swim(i);
-        sink(i);
         return;
     }
 
