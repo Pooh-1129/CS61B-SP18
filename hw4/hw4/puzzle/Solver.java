@@ -1,3 +1,6 @@
+package hw4.puzzle;
+
+import hw4.puzzle.Word;
 import hw4.puzzle.WorldState;
 import edu.princeton.cs.algs4.MinPQ;
 import java.util.*;
@@ -8,6 +11,12 @@ public class Solver {
         private WorldState state;
         private int moves;
         private SearchNode pre;
+        
+        private SearchNode(WorldState w, int m, SearchNode p) {
+            state = w;
+            moves = m;
+            pre = p;
+        }
         
         private WorldState state() {
             return state;
@@ -33,8 +42,8 @@ public class Solver {
         MinPQ<SearchNode> q = new MinPQ<>();
         q.insert(new SearchNode(initial, 0, null));
         while (!q.isEmpty()) {
-            SearchNode node = q.delMin;
-            if (node.state.isgoal()) {
+            SearchNode node = q.delMin();
+            if (node.state.isGoal()) {
                 moveCnts = node.moves;
                 path = new ArrayList<>();
                 SearchNode cur = node;

@@ -1,7 +1,8 @@
 package hw4.puzzle;
 import edu.princeton.cs.algs4.Queue;
+import hw4.puzzle.WorldState;
 
-public class Board {
+public class Board implements WorldState{
     private int[][] tiles;
     private int N;
     private final int BLANK = 0;
@@ -31,7 +32,7 @@ public class Board {
      * Returns neighbors of this board.
      * SPOILERZ: This is the answer.
      */
-    @Override
+    // @Override
     public Iterable<WorldState> neighbors() {
         Queue<WorldState> neighbors = new Queue<>();
         int hug = size();
