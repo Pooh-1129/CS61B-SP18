@@ -6,11 +6,12 @@ public class MergeSort {
      *
      * The method assumes that both q1 and q2 are in sorted order, with the smallest item first. At
      * most one of q1 or q2 can be empty (but both cannot be empty).
-     *
+     *·
      * @param   q1  A Queue in sorted order from least to greatest.
      * @param   q2  A Queue in sorted order from least to greatest.
      * @return      The smallest item that is in q1 or q2.
      */
+
     private static <Item extends Comparable> Item getMin(
             Queue<Item> q1, Queue<Item> q2) {
         if (q1.isEmpty()) {
@@ -35,7 +36,13 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item>> q = new Queue<>();
+        for (Item i : items) {
+            Queue<Item> tmp = new Queue<>();
+            tmp.enqueue(i);
+            q.enqueue(tmp);
+        }
+        return q;
     }
 
     /**
@@ -52,15 +59,37 @@ public class MergeSort {
      *
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
-            Queue<Item> q1, Queue<Item> q2) {
+            java.util.Queue<Item> q1, java.util.Queue<Item> q2) {
         // Your code here!
-        return null;
+        Queue<Item> ans = new Queue<>();
+        while (!q1.isEmpty() || !q2.isEmpty()) {
+            ans.enqueue(getMin(q1, q2));
+        }
+        return ans;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        if (items.size() <= 1) {
+            return items;
+        }
+        Queue<Queue<Item>> q = makeSingleItemQueues(items);
+        while (q.size() > 1) {
+            Queue<Item> q1 = q.dequeue();
+            Queue<Item> q2 = q.dequeue();
+            q.enqueue(mergeSortedQueues(q1, q2));
+        }
+        return q.dequeue();
+    }
+
+    public static void main(String[] args) {
+        Queue<String> students = new Queue<String>();
+        students.enqueue("Alice");
+        students.enqueue("Vanessa");    
+        students.enqueue("Ethan");
+        System.out.println("origin: " + students);
+        System.out.println("sorted: " + mergeSort(students));
     }
 }
