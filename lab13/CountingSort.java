@@ -1,5 +1,3 @@
-import org.omg.CORBA.INTERNAL;
-
 /**
  * Class with 2 ways of doing Counting sort, one naive way and one "better" way
  *
