@@ -1,7 +1,7 @@
 package lab14;
 import lab14lib.Generator;
 
-public class AcceleratingSawToothGenerator {
+public class AcceleratingSawToothGenerator implements Generator{
     private int period;
     private int state;
     private double factor;
@@ -17,7 +17,6 @@ public class AcceleratingSawToothGenerator {
         return (v - half) / half;
     }
 
-    @Override 
     public double next() {
         if (state < period) {
             state += 1;
